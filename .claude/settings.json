@@ -73,6 +73,9 @@
       }
     ]
   },
-  "enabledMcpjsonServers": ["expo"],
-  "enableAllProjectMcpServers": false
+  "enabledPlugins": {
+    "expo@expo-plugins": true
+  },
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": ["expo"]
 }
