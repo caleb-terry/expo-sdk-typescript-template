@@ -1,0 +1,78 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm start:*)",
+      "Bash(pnpm android:*)",
+      "Bash(pnpm ios:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(pnpm typecheck:*)",
+      "Bash(pnpm test:*)",
+      "Bash(pnpm format:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm dlx:*)",
+      "Bash(pnpm exec:*)",
+      "Bash(npx expo install:*)",
+      "Bash(npx expo doctor:*)",
+      "Bash(npx:*)",
+      "Bash(eas:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git stash:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(ls:*)",
+      "Bash(mkdir:*)",
+      "Bash(cat:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(which:*)",
+      "Bash(node:*)",
+      "Bash(tsc:*)",
+      "mcp__claude_ai_Context7__resolve-library-id",
+      "mcp__claude_ai_Context7__query-docs"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "npx prettier --write \"$CLAUDE_FILE_PATH\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"$CLAUDE_FILE_PATH\" | grep -q '\\.env' && echo 'BLOCKED: Do not edit .env files directly' && exit 1 || exit 0"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd $(git rev-parse --show-toplevel) && git diff --name-only HEAD | grep -E '\\.(ts|tsx|json|md)$' | xargs -r npx lint-staged --allow-empty 2>/dev/null || true",
+            "timeout": 30000
+          }
+        ]
+      }
+    ]
+  },
+  "enabledMcpjsonServers": ["expo"],
+  "enableAllProjectMcpServers": false
+}

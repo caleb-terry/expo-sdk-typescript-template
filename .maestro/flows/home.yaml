@@ -1,0 +1,6 @@
+appId: com.example.expotemplate
+---
+- launchApp
+- assertVisible: "Home"
+- tapOn: "Profile"
+- assertVisible: "Profile"
