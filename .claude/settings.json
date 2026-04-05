@@ -39,6 +39,8 @@
       "Bash(npx ctx7@latest:*)"
     ]
   },
+  "enableAllProjectMcpServers": false,
+  "enabledMcpjsonServers": ["expo"],
   "hooks": {
     "PostToolUse": [
       {
@@ -75,8 +77,8 @@
     ]
   },
   "enabledPlugins": {
-    "expo@expo-plugins": true
-  },
-  "enableAllProjectMcpServers": false,
-  "enabledMcpjsonServers": ["expo"]
+    "expo@expo-plugins": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "context7@claude-plugins-official": true
+  }
 }
